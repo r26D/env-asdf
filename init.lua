@@ -42,16 +42,7 @@ function M.export(args)
 
     local shims_dir = join(data_dir, "shims")
 
-    -- Derive the bin directory: prefer ASDF_DIR/bin if it exists,
-    -- otherwise find the directory containing the asdf binary itself.
     local bin_dir = join(asdf_dir, "bin")
-    local which = host.exec("which", { "asdf" })
-    if which.code == 0 then
-        local asdf_bin = (which.stdout or ""):match("^%s*(.-)%s*$") or ""
-        if #asdf_bin > 0 then
-            bin_dir = asdf_bin:match("(.+)/[^/]+$") or bin_dir
-        end
-    end
 
     -- Read the baseline PATH that the host provided to this process.
     local base_path = ""
