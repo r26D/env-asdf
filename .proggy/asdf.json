@@ -1,0 +1,33 @@
+{
+  "tool": "asdf",
+  "project": {
+    "name": "env-asdf"
+  },
+  "languages": [
+    {
+      "name": "python",
+      "version": "3.12.9",
+      "strategy": "recommended"
+    }
+  ],
+  "tools": [],
+  "capabilities": {
+    "license": {
+      "enabled": true,
+      "kind": "MIT",
+      "holder": "r26D, LLC",
+      "year": 2026
+    }
+  },
+  "meta": {
+    "created_at": "2026-05-08T00:45:05.793Z",
+    "source": "interview_v1",
+    "llm": {
+      "model": "gpt-5.4-nano",
+      "used_for": [
+        "tool_recommendation"
+      ],
+      "at": "2026-05-08T00:44:53.911Z"
+    }
+  }
+}

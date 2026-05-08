@@ -1,0 +1,4 @@
+# >>> proggy:worktrees
+# Standard location for git worktrees created by agents or IDE automation (not committed).
+.worktrees/
+# <<< proggy:worktrees
