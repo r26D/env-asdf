@@ -32,14 +32,26 @@ function M.export(args)
         error("asdf info failed: " .. (info.stderr or info.stdout or "unknown error"))
     end
 
-    local asdf_dir = info.stdout:match("ASDF_DIR=([^\r\n]+)")
-    if not asdf_dir then
-        error("could not determine ASDF_DIR from `asdf info` output")
+    local data_dir = info.stdout:match("ASDF_DATA_DIR=([^\r\n]+)")
+    if not data_dir then
+        error("could not determine ASDF_DATA_DIR from `asdf info` output")
     end
-    local data_dir = info.stdout:match("ASDF_DATA_DIR=([^\r\n]+)") or asdf_dir
+
+    -- asdf v0.18+ is a standalone Go binary; ASDF_DIR may not exist.
+    local asdf_dir = info.stdout:match("ASDF_DIR=([^\r\n]+)") or data_dir
 
     local shims_dir = join(data_dir, "shims")
+
+    -- Derive the bin directory: prefer ASDF_DIR/bin if it exists,
+    -- otherwise find the directory containing the asdf binary itself.
     local bin_dir = join(asdf_dir, "bin")
+    local which = host.exec("which", { "asdf" })
+    if which.code == 0 then
+        local asdf_bin = (which.stdout or ""):match("^%s*(.-)%s*$") or ""
+        if #asdf_bin > 0 then
+            bin_dir = asdf_bin:match("(.+)/[^/]+$") or bin_dir
+        end
+    end
 
     -- Read the baseline PATH that the host provided to this process.
     local base_path = ""
