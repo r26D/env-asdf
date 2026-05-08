@@ -1,0 +1,10 @@
+{
+  "name": "env-asdf",
+  "display_name": "asdf",
+  "version": "1.0.0",
+  "description": "Activate asdf-managed environment (tools via shims) for workspace subprocesses",
+  "kind": "env-provider",
+  "required_clis": ["asdf", "printenv"],
+  "operations": ["detect", "export"],
+  "settings": []
+}
